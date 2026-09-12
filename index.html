@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>StudyFlow V2 - Student Planner</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">S</div>
+
+            <div>
+                <h2>StudyFlow</h2>
+                <span>Student Planner</span>
+            </div>
+        </div>
+
+        <nav class="navigation">
+
+            <button class="nav-item active" data-page="dashboard">
+                <span>⌂</span>
+                Dashboard
+            </button>
+
+            <button class="nav-item" data-page="calendar">
+                <span>📅</span>
+                Kalender
+            </button>
+
+            <button class="nav-item" data-page="tasks">
+                <span>✓</span>
+                Tugas
+            </button>
+
+            <button class="nav-item" data-page="schedule">
+                <span>📚</span>
+                Jadwal Pelajaran
+            </button>
+
+            <button class="nav-item" data-page="goals">
+                <span>🎯</span>
+                Target Belajar
+            </button>
+
+            <button class="nav-item" data-page="statistics">
+                <span>📈</span>
+                Statistik
+            </button>
+
+            <button class="nav-item" data-page="profile">
+                <span>👤</span>
+                Profil
+            </button>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <button id="darkModeButton" class="nav-item">
+                <span>🌙</span>
+                Dark Mode
+            </button>
+
+            <div class="student-mini">
+
+                <div class="avatar-small">
+                    S
+                </div>
+
+                <div>
+                    <strong id="sidebarName">Student</strong>
+                    <small>Pelajar</small>
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div class="mobile-logo">
+                <strong>StudyFlow</strong>
+            </div>
+
+            <div class="topbar-right">
+
+                <div class="date-display">
+                    <span>📅</span>
+                    <span id="todayDate"></span>
+                </div>
+
+                <button class="profile-button" data-page="profile">
+
+                    <div class="avatar">
+                        S
+                    </div>
+
+                    <div class="profile-info">
+                        <strong id="topName">Student</strong>
+                        <small>Pelajar</small>
+                    </div>
+
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= DASHBOARD ================= -->
+
+        <section id="dashboard" class="page active">
+
+            <div class="welcome">
+
+                <div class="welcome-text">
+
+                    <span class="welcome-label">
+                        STUDYFLOW V2
+                    </span>
+
+                    <h1>
+                        Selamat belajar, <span id="welcomeName">Student</span> 👋
+                    </h1>
+
+                    <p>
+                        Atur tugas, jadwal, target, dan perkembangan belajarmu
+                        dalam satu tempat.
+                    </p>
+
+                </div>
+
+                <div class="welcome-progress">
+
+                    <div class="circle-progress">
+                        <span id="dashboardProgress">0%</span>
+                    </div>
+
+                    <small>Progress tugas</small>
+
+                </div>
+
+            </div>
+
+
+            <!-- STAT CARDS -->
+
+            <div class="stats-grid">
+
+                <div class="stat-card purple">
+
+                    <div class="stat-icon">
+                        📚
+                    </div>
+
+                    <div>
+                        <span>Total Tugas</span>
+                        <strong id="totalTasks">0</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card orange">
+
+                    <div class="stat-icon">
+                        ⏳
+                    </div>
+
+                    <div>
+                        <span>Belum Selesai</span>
+                        <strong id="pendingTasks">0</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card green">
+
+                    <div class="stat-icon">
+                        ✓
+                    </div>
+
+                    <div>
+                        <span>Selesai</span>
+                        <strong id="completedTasks">0</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card blue">
+
+                    <div class="stat-icon">
+                        🎯
+                    </div>
+
+                    <div>
+                        <span>Target Hari Ini</span>
+                        <strong id="todayGoal">0%</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- DASHBOARD GRID -->
+
+            <div class="dashboard-grid">
+
+                <!-- DEADLINE -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <h2>Deadline Terdekat</h2>
+                            <p>Tugas yang harus segera dikerjakan</p>
+                        </div>
+
+                        <button
+                            class="link-button"
+                            data-page="tasks">
+                            Lihat Semua →
+                        </button>
+
+                    </div>
+
+                    <div id="deadlineList" class="deadline-list"></div>
+
+                </div>
+
+
+                <!-- DAILY GOAL -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <h2>Target Belajar 🎯</h2>
+                            <p>Target hari ini</p>
+                        </div>
+
+                        <button
+                            class="link-button"
+                            data-page="goals">
+                            Kelola
+                        </button>
+
+                    </div>
+
+                    <div class="goal-dashboard">
+
+                        <div class="goal-circle">
+
+                            <span id="goalPercent">0%</span>
+
+                        </div>
+
+                        <div>
+
+                            <h3 id="goalHours">
+                                0 / 2 jam
+                            </h3>
+
+                            <p>
+                                Waktu belajar hari ini
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- BOTTOM GRID -->
+
+            <div class="dashboard-grid">
+
+                <!-- SCHEDULE -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <h2>Jadwal Hari Ini 📚</h2>
+                            <p>Pelajaran yang harus kamu ikuti</p>
+                        </div>
+
+                        <button
+                            class="link-button"
+                            data-page="schedule">
+                            Lihat Jadwal →
+                        </button>
+
+                    </div>
+
+                    <div id="todaySchedule"></div>
+
+                </div>
+
+
+                <!-- QUICK STATS -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <h2>Statistik Mingguan 📈</h2>
+                            <p>Progress tugas selama minggu ini</p>
+                        </div>
+
+                    </div>
+
+                    <div class="mini-chart">
+
+                        <div class="bar-container">
+                            <div class="bar" style="height:40%"></div>
+                            <span>Sen</span>
+                        </div>
+
+                        <div class="bar-container">
+                            <div class="bar" style="height:65%"></div>
+                            <span>Sel</span>
+                        </div>
+
+                        <div class="bar-container">
+                            <div class="bar" style="height:35%"></div>
+                            <span>Rab</span>
+                        </div>
+
+                        <div class="bar-container">
+                            <div class="bar" style="height:80%"></div>
+                            <span>Kam</span>
+                        </div>
+
+                        <div class="bar-container">
+                            <div class="bar" style="height:55%"></div>
+                            <span>Jum</span>
+                        </div>
+
+                        <div class="bar-container">
+                            <div class="bar" style="height:70%"></div>
+                            <span>Sab</span>
+                        </div>
+
+                        <div class="bar-container">
+                            <div class="bar" style="height:45%"></div>
+                            <span>Min</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= CALENDAR ================= -->
+
+        <section id="calendar" class="page">
+
+            <div class="page-title">
+
+                <div>
+                    <h1>Kalender 📅</h1>
+                    <p>Lihat jadwal dan deadline kamu.</p>
+                </div>
+
+            </div>
+
+            <div class="calendar-card">
+
+                <div class="calendar-header">
+
+                    <button id="prevMonth">‹</button>
+
+                    <h2 id="calendarTitle"></h2>
+
+                    <button id="nextMonth">›</button>
+
+                </div>
+
+                <div class="calendar-week">
+
+                    <span>Min</span>
+                    <span>Sen</span>
+                    <span>Sel</span>
+                    <span>Rab</span>
+                    <span>Kam</span>
+                    <span>Jum</span>
+                    <span>Sab</span>
+
+                </div>
+
+                <div id="calendarGrid" class="calendar-grid"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= TASKS ================= -->
+
+        <section id="tasks" class="page">
+
+            <div class="page-title">
+
+                <div>
+                    <h1>Daftar Tugas ✓</h1>
+                    <p>Kelola semua tugas sekolahmu.</p>
+                </div>
+
+                <button id="openTaskModal" class="primary-button">
+                    + Tambah Tugas
+                </button>
+
+            </div>
+
+
+            <div class="task-tools">
+
+                <div class="search-box">
+
+                    🔍
+
+                    <input
+                        type="text"
+                        id="searchTask"
+                        placeholder="Cari tugas..."
+                    >
+
+                </div>
+
+
+                <select id="filterTask">
+
+                    <option value="all">
+                        Semua Tugas
+                    </option>
+
+                    <option value="pending">
+                        Belum Selesai
+                    </option>
+
+                    <option value="completed">
+                        Selesai
+                    </option>
+
+                    <option value="overdue">
+                        Terlambat
+                    </option>
+
+                    <option value="high">
+                        Prioritas Tinggi
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div id="taskList" class="task-grid"></div>
+
+        </section>
+
+
+        <!-- ================= SCHEDULE ================= -->
+
+        <section id="schedule" class="page">
+
+            <div class="page-title">
+
+                <div>
+                    <h1>Jadwal Pelajaran 📚</h1>
+                    <p>Atur jadwal pelajaran sekolahmu.</p>
+                </div>
+
+                <button id="openScheduleModal" class="primary-button">
+                    + Tambah Jadwal
+                </button>
+
+            </div>
+
+
+            <div id="scheduleList" class="schedule-grid"></div>
+
+        </section>
+
+
+        <!-- ================= GOALS ================= -->
+
+        <section id="goals" class="page">
+
+            <div class="page-title">
+
+                <div>
+                    <h1>Target Belajar 🎯</h1>
+                    <p>Tentukan target belajar harianmu.</p>
+                </div>
+
+            </div>
+
+
+            <div class="goal-layout">
+
+                <div class="card goal-big-card">
+
+                    <h2>Target Hari Ini</h2>
+
+                    <div class="big-goal-circle">
+
+                        <span id="bigGoalPercent">
+                            0%
+                        </span>
+
+                    </div>
+
+                    <h3 id="bigGoalText">
+                        0 / 2 jam
+                    </h3>
+
+                    <p>
+                        Terus semangat belajar!
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h2>Atur Target</h2>
+
+                    <form id="goalForm">
+
+                        <label>
+                            Target belajar (jam)
+
+                            <input
+                                type="number"
+                                id="goalTarget"
+                                min="1"
+                                max="24"
+                                value="2"
+                                required
+                            >
+
+                        </label>
+
+
+                        <label>
+                            Waktu belajar hari ini (jam)
+
+                            <input
+                                type="number"
+                                id="goalCurrent"
+                                min="0"
+                                max="24"
+                                value="0"
+                                step="0.5"
+                                required
+                            >
+
+                        </label>
+
+
+                        <button class="primary-button">
+                            Simpan Target
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= STATISTICS ================= -->
+
+        <section id="statistics" class="page">
+
+            <div class="page-title">
+
+                <div>
+                    <h1>Statistik 📈</h1>
+                    <p>Lihat perkembangan belajarmu.</p>
+                </div>
+
+            </div>
+
+
+            <div class="statistics-grid">
+
+                <div class="card statistic-big">
+
+                    <span>Progress Keseluruhan</span>
+
+                    <strong id="statProgress">
+                        0%
+                    </strong>
+
+                    <div class="large-progress">
+
+                        <div id="statProgressBar"></div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card statistic-big">
+
+                    <span>Total Tugas</span>
+
+                    <strong id="statTotal">
+                        0
+                    </strong>
+
+                    <p>
+                        Semua tugas yang tersimpan
+                    </p>
+
+                </div>
+
+
+                <div class="card statistic-big">
+
+                    <span>Tugas Selesai</span>
+
+                    <strong id="statCompleted">
+                        0
+                    </strong>
+
+                    <p>
+                        Tugas yang telah diselesaikan
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div>
+                        <h2>Grafik Progress</h2>
+                        <p>Visualisasi aktivitas belajarmu.</p>
+                    </div>
+
+                </div>
+
+                <div class="large-chart">
+
+                    <div class="chart-column">
+                        <div class="chart-bar" style="height:45%"></div>
+                        <span>Sen</span>
+                    </div>
+
+                    <div class="chart-column">
+                        <div class="chart-bar" style="height:70%"></div>
+                        <span>Sel</span>
+                    </div>
+
+                    <div class="chart-column">
+                        <div class="chart-bar" style="height:50%"></div>
+                        <span>Rab</span>
+                    </div>
+
+                    <div class="chart-column">
+                        <div class="chart-bar" style="height:85%"></div>
+                        <span>Kam</span>
+                    </div>
+
+                    <div class="chart-column">
+                        <div class="chart-bar" style="height:65%"></div>
+                        <span>Jum</span>
+                    </div>
+
+                    <div class="chart-column">
+                        <div class="chart-bar" style="height:75%"></div>
+                        <span>Sab</span>
+                    </div>
+
+                    <div class="chart-column">
+                        <div class="chart-bar" style="height:40%"></div>
+                        <span>Min</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= PROFILE ================= -->
+
+        <section id="profile" class="page">
+
+            <div class="page-title">
+
+                <div>
+                    <h1>Profil Siswa 👤</h1>
+                    <p>Kelola informasi profilmu.</p>
+                </div>
+
+            </div>
+
+
+            <div class="profile-card">
+
+                <div class="profile-avatar">
+                    S
+                </div>
+
+                <h2 id="profileName">
+                    Student
+                </h2>
+
+                <p>
+                    Pelajar • StudyFlow
+                </p>
+
+                <div class="profile-form">
+
+                    <label>
+                        Nama
+
+                        <input
+                            type="text"
+                            id="studentName"
+                            placeholder="Masukkan nama"
+                        >
+
+                    </label>
+
+
+                    <label>
+                        Kelas
+
+                        <input
+                            type="text"
+                            id="studentClass"
+                            placeholder="Contoh: XI RPL 1"
+                        >
+
+                    </label>
+
+
+                    <label>
+                        Sekolah
+
+                        <input
+                            type="text"
+                            id="studentSchool"
+                            placeholder="Nama sekolah"
+                        >
+
+                    </label>
+
+
+                    <button id="saveProfile" class="primary-button">
+                        Simpan Profil
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- ================= TASK MODAL ================= -->
+
+<div id="taskModal" class="modal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <div>
+                <h2>Tambah Tugas</h2>
+                <p>Buat tugas baru.</p>
+            </div>
+
+            <button class="close-modal" id="closeTaskModal">
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="taskForm">
+
+            <label>
+                Nama Tugas
+
+                <input
+                    type="text"
+                    id="taskTitle"
+                    placeholder="Contoh: Membuat laporan"
+                    required
+                >
+
+            </label>
+
+
+            <label>
+                Mata Pelajaran
+
+                <input
+                    type="text"
+                    id="taskSubject"
+                    placeholder="Contoh: Bahasa Indonesia"
+                    required
+                >
+
+            </label>
+
+
+            <div class="form-row">
+
+                <label>
+                    Deadline
+
+                    <input
+                        type="date"
+                        id="taskDate"
+                        required
+                    >
+
+                </label>
+
+
+                <label>
+                    Prioritas
+
+                    <select id="taskPriority">
+
+                        <option value="low">
+                            Rendah
+                        </option>
+
+                        <option value="medium" selected>
+                            Sedang
+                        </option>
+
+                        <option value="high">
+                            Tinggi
+                        </option>
+
+                    </select>
+
+                </label>
+
+            </div>
+
+
+            <label>
+                Keterangan
+
+                <textarea
+                    id="taskDescription"
+                    placeholder="Tambahkan keterangan..."
+                ></textarea>
+
+            </label>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="secondary-button"
+                    id="cancelTask">
+                    Batal
+                </button>
+
+                <button
+                    type="submit"
+                    class="primary-button">
+                    Simpan Tugas
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ================= SCHEDULE MODAL ================= -->
+
+<div id="scheduleModal" class="modal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <div>
+                <h2>Tambah Jadwal</h2>
+                <p>Masukkan jadwal pelajaran.</p>
+            </div>
+
+            <button
+                class="close-modal"
+                id="closeScheduleModal">
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="scheduleForm">
+
+            <label>
+                Mata Pelajaran
+
+                <input
+                    type="text"
+                    id="scheduleSubject"
+                    placeholder="Contoh: Matematika"
+                    required
+                >
+
+            </label>
+
+
+            <div class="form-row">
+
+                <label>
+                    Hari
+
+                    <select id="scheduleDay">
+
+                        <option value="Senin">Senin</option>
+                        <option value="Selasa">Selasa</option>
+                        <option value="Rabu">Rabu</option>
+                        <option value="Kamis">Kamis</option>
+                        <option value="Jumat">Jumat</option>
+                        <option value="Sabtu">Sabtu</option>
+
+                    </select>
+
+                </label>
+
+
+                <label>
+                    Jam
+
+                    <input
+                        type="time"
+                        id="scheduleTime"
+                        required
+                    >
+
+                </label>
+
+            </div>
+
+
+            <label>
+                Ruangan
+
+                <input
+                    type="text"
+                    id="scheduleRoom"
+                    placeholder="Contoh: Lab RPL"
+                >
+
+            </label>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="secondary-button"
+                    id="cancelSchedule">
+                    Batal
+                </button>
+
+                <button
+                    type="submit"
+                    class="primary-button">
+                    Simpan Jadwal
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<div id="toast" class="toast">
+    Data berhasil disimpan!
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
